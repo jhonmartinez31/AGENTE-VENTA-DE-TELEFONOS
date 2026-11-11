@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CEL RED // Asesor Comercial y Sistema de Ventas IA | Tienda de Celulares</title>
+  <link rel="stylesheet" href="/static/style.css?v=20261111">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <div class="app-container">
+    <!-- Header CEL RED -->
+    <header class="app-header">
+      <div class="header-brand">
+        <div class="brand-badge" title="CEL RED AI SALES">
+          <svg viewBox="0 0 44 44" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="22" cy="22" r="20" stroke="#00d4ff" stroke-width="1.5" opacity="0.5" />
+            <rect x="15" y="9" width="14" height="26" rx="3" stroke="#00d4ff" stroke-width="2"
+              fill="rgba(0,212,255,0.15)" />
+            <circle cx="22" cy="31" r="1.5" fill="#fff" />
+            <line x1="19" y1="12" x2="25" y2="12" stroke="#fff" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>CEL RED <span class="brand-slash">//</span> ASESOR COMERCIAL IA</h1>
+          <p class="brand-subtitle">Contado &nbsp;·&nbsp; Addi / Sistecrédito / Bogotá / Krediya / Credimóvil / Renting &nbsp;·&nbsp; 14 Sedes</p>
+        </div>
+      </div>
+
+      <!-- Menú Principal de Navegación por Apartados (Limpio, una sola vista a la vez) -->
+      <nav class="top-nav-menu" aria-label="Menú principal de apartados">
+        <button type="button" class="nav-btn active" id="tabBtnChat" onclick="switchMobileView('chat')">
+          💬 Asesoría Comercial
+        </button>
+        <button type="button" class="nav-btn" id="tabBtnSidebar" onclick="switchMobileView('sidebar')">
+          📦 Catálogo y Pedidos
+        </button>
+        <button type="button" class="nav-btn advisor-nav-btn" id="tabBtnAdvisor" onclick="switchMobileView('advisor')">
+          🧠 Entrenar Agente (Jhon)
+        </button>
+        <button type="button" class="nav-btn" id="tabBtnArch" onclick="switchMobileView('arch')">
+          ⚡ Cómo está construido
+        </button>
+      </nav>
+    </header>
+
+    <!-- ===============================================================
+         APARTADO 1: ASESORÍA COMERCIAL (SOLO EL CHAT LIMPIO Y ENFOCADO)
+         =============================================================== -->
+    <main class="view-section active-view" id="viewChat">
+      <div class="clean-chat-wrapper">
+        <!-- Barra Superior Compacta de Estado de la Cotización / Orden -->
+        <div class="compact-order-bar">
+          <div class="compact-order-info">
+            <span class="compact-item">
+              <span class="compact-lbl">Orden:</span>
+              <strong id="compactCodigo">---</strong>
+            </span>
+            <span class="compact-divider">·</span>
+            <span class="compact-item">
+              <span class="compact-lbl">Equipo:</span>
+              <strong id="compactEquipo">En selección</strong>
+            </span>
+          </div>
+          <button type="button" class="btn-view-order" onclick="switchMobileView('sidebar')">
+            📋 Ver ficha y catálogo →
+          </button>
+        </div>
+
+        <!-- Columna Central Limpia de Chat de Ventas y Entrada de Voz -->
+        <section class="chat-section">
+          <!-- Barra de Consultas Rápidas de Clientes -->
+          <div class="quick-scenarios">
+            <span class="scenarios-label">⚡ CONSULTAR:</span>
+            <button class="chip"
+              onclick="sendQuickPrompt('¿Qué modelos de iPhone vienen con los obsequios y combos de regalo en Cel Red?')">
+              🎁 Obsequios iPhone
+            </button>
+            <button class="chip"
+              onclick="sendQuickPrompt('Quiero comparar el iPhone 15 de 128GB Nuevo Activo contra el Open Box Seminuevo')">
+              📱 iPhone 15 Nuevo vs Open Box
+            </button>
+            <button class="chip"
+              onclick="sendQuickPrompt('Estoy reportado y quiero sacar el iPhone 13 de 128GB Open Box por Renting, ¿cuánto doy de inicial?')">
+              💳 Renting (Reportados)
+            </button>
+            <button class="chip"
+              onclick="sendQuickPrompt('¿Cuáles son las direcciones de las 14 sedes de Cel Red?')">
+              📍 14 Sedes Cel Red
+            </button>
+          </div>
+
+          <!-- Ventana de Mensajes -->
+          <div class="chat-messages" id="chatMessages">
+            <!-- Mensaje de bienvenida del Asesor Cel Red -->
+            <div class="message agent-message">
+              <div class="message-sender">ASESOR CEL RED IA</div>
+              <div class="message-body">
+                ¡Hola, bienvenido a <strong>Cel Red</strong>! Soy tu asesor comercial inteligente con acceso a nuestros precios oficiales de <strong>contado</strong>, <strong>combos de obsequio en iPhone (desde el iPhone 13 en adelante)</strong> y financiación por <strong>Addi, Sistecrédito, Banco de Bogotá, Krediya, Credimóvil y Renting</strong>.<br><br>
+                ¿Qué celular te gustaría cotizar hoy o en qué ciudad te encuentras? Puedes escribirme o presionar <strong>VOZ</strong> para hablar conmigo.
+              </div>
+              <div class="message-time">Ahora</div>
+            </div>
+          </div>
+
+          <!-- Indicador de Grabación / Proceso -->
+          <div class="recording-bar" id="recordingBar" style="display: none;">
+            <div class="pulse-record-dot"></div>
+            <span id="recordingStatusText">Escuchando al cliente... Hable con naturalidad.</span>
+            <span class="record-timer" id="recordTimer">00:00</span>
+          </div>
+
+          <!-- Barra de Entrada (Texto y Audio) -->
+          <div class="chat-input-container">
+            <button type="button" class="btn-voice" id="btnVoice" title="Presionar para hablar con el asesor de Cel Red">
+              <svg class="icon-mic" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" />
+                <path
+                  d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" />
+              </svg>
+              <span class="btn-voice-text" id="btnVoiceLabel">VOZ</span>
+            </button>
+
+            <input type="text" id="textInput"
+              placeholder="Pregunta por un celular, plataforma de crédito, sede o confirma tu compra..."
+              autocomplete="off">
+
+            <button type="button" class="btn-send" id="btnSend" title="Enviar mensaje">
+              <svg class="icon-send" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+              </svg>
+            </button>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- ===============================================================
+         APARTADO 2: CATÁLOGO DESTACADO Y PEDIDOS EN CURSO
+         =============================================================== -->
+    <section class="view-section" id="viewSidebar" style="display: none;">
+      <div class="catalog-orders-wrapper">
+        <div class="section-top-banner">
+          <div>
+            <span class="arch-eyebrow">Gestión Comercial en Tiempo Real</span>
+            <h2 class="arch-title">📦 Ficha de Cotización, Catálogo Rápido y Órdenes</h2>
+          </div>
+          <button type="button" class="btn-back-chat" onclick="switchMobileView('chat')">
+            ← Volver al Chat de Asesoría
+          </button>
+        </div>
+
+        <div class="catalog-orders-grid">
+          <!-- Tarjeta 1: Orden / Cotización en Curso -->
+          <div class="card incident-card">
+            <div class="card-header">
+              <h3>Orden / Cotización en Curso</h3>
+              <span class="badge-status" id="badgeEstado">En asesoría</span>
+            </div>
+            <div class="card-body">
+              <div class="incident-metric">
+                <span class="metric-label">Código de Orden:</span>
+                <span class="metric-value" id="incCodigo">---</span>
+              </div>
+              <div class="incident-metric">
+                <span class="metric-label">Intención Comercial:</span>
+                <span class="priority-pill" id="priorityPill">Consulta</span>
+              </div>
+              <div class="incident-metric">
+                <span class="metric-label">Equipo / Producto:</span>
+                <span class="metric-value" id="incTipoEvento">En selección</span>
+              </div>
+              <div class="incident-metric">
+                <span class="metric-label">Modalidad y Sede:</span>
+                <span class="metric-value" id="incUbicacion">Contado / Separado / Crédito</span>
+              </div>
+              <div class="incident-metric">
+                <span class="metric-label">Candado y Condiciones:</span>
+                <p class="metric-text" id="incAcciones">Esperando consulta del cliente para verificar stock y precio en
+                  PostgreSQL...</p>
+              </div>
+              <div class="escalation-alert" id="escalationAlert" style="display: none;">
+                ✅ <strong>ORDEN CONFIRMADA EN SISTEMA:</strong> Equipo reservado y listo para facturación inmediata en
+                Caja SysCafé de Cel Red.
+              </div>
+            </div>
+          </div>
+
+          <!-- Tarjeta 2: Catálogo Destacado en Vitrina Cel Red -->
+          <div class="card directory-card">
+            <div class="card-header">
+              <h3>Equipos Destacados (Clic para cotizar)</h3>
+            </div>
+            <div class="directory-list">
+              <div class="directory-item" onclick="quoteFromCatalog('Quiero ver el iPhone 15 de 128GB en Nuevo y en Open Box Seminuevo')"
+                style="cursor:pointer;">
+                <div class="dir-info">
+                  <span class="dir-name">iPhone 15 128GB + 🎁 Combo 2 o 3</span>
+                  <span class="dir-desc">Open Box: $1.790.000 · Nuevo: $2.200.000</span>
+                </div>
+                <span class="dir-phone">$1.79M+</span>
+              </div>
+              <div class="directory-item" onclick="quoteFromCatalog('Me interesa el iPhone 13 de 128GB Open Box Seminuevo de $1.150.000')"
+                style="cursor:pointer;">
+                <div class="dir-info">
+                  <span class="dir-name">iPhone 13 128GB + 🎁 Estuche y Vidrio</span>
+                  <span class="dir-desc">Open Box: $1.150.000 · Nuevo: $1.840.000</span>
+                </div>
+                <span class="dir-phone">$1.15M</span>
+              </div>
+              <div class="directory-item" onclick="quoteFromCatalog('Quiero ver los iPhone 16 Pro y 16 Pro Max con el Combo 5 de obsequio')"
+                style="cursor:pointer;">
+                <div class="dir-info">
+                  <span class="dir-name">iPhone 16 Pro / Pro Max + 🎁 Combo 5</span>
+                  <span class="dir-desc">16 Pro: $2.580.000 · 16 Pro Max: $2.950.000</span>
+                </div>
+                <span class="dir-phone">$2.58M+</span>
+              </div>
+              <div class="directory-item"
+                onclick="quoteFromCatalog('Quiero información del Redmi Note 15 Pro 256/8 y del POCO X8 Pro Max 512/12')"
+                style="cursor:pointer;">
+                <div class="dir-info">
+                  <span class="dir-name">Redmi Note 15 Pro / POCO X8 Pro Max</span>
+                  <span class="dir-desc">Note 15 Pro: $970.000 · POCO X8PM: $1.960.000</span>
+                </div>
+                <span class="dir-phone">$970k+</span>
+              </div>
+              <div class="directory-item"
+                onclick="quoteFromCatalog('¿Qué celulares económicos tienen desde $350.000 en Samsung, Redmi y Tecno?')"
+                style="cursor:pointer;">
+                <div class="dir-info">
+                  <span class="dir-name">Gama Económica (Samsung / Redmi / Tecno)</span>
+                  <span class="dir-desc">Samsung A05 y Redmi A5: $350.000 · Spark Go2: $360.000</span>
+                </div>
+                <span class="dir-phone">$350k+</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tarjeta 3: Historial de Órdenes y Cotizaciones en PostgreSQL -->
+          <div class="card history-card">
+            <div class="card-header">
+              <h3>Órdenes y Separados Recientes</h3>
+              <button class="btn-refresh" onclick="loadIncidentsHistory()" title="Actualizar órdenes">↻</button>
+            </div>
+            <div class="history-list" id="historyList">
+              <div class="history-empty">Cargando órdenes...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===============================================================
+         APARTADO 3: CENTRO DE ENTRENAMIENTO EXCLUSIVO — ASESOR JHON
+         =============================================================== -->
+    <section class="view-section advisor-section" id="entrenamientoJhon" style="display: none;">
+      <div class="arch-container">
+        <div class="advisor-panel">
+          <div class="advisor-header">
+            <div>
+              <span class="arch-eyebrow">🔒 Acceso Exclusivo de Asesor Comercial</span>
+              <h2 class="arch-title">🧠 Centro de Entrenamiento del Agente — Asesor Jhon</h2>
+              <p class="advisor-subtitle">
+                Enseña al agente tus propios tips de cierre, argumentos de venta, promociones del día o manejo de objeciones.
+                Todo queda vectorizado en <strong>PostgreSQL + pgvector (`celred_db`)</strong> y el agente lo aplicará en texto y voz.
+              </p>
+            </div>
+            <div class="advisor-status-badge" id="advisorAuthBadge">
+              🔒 Sesión Bloqueada (Solo Jhon)
+            </div>
+          </div>
+
+          <!-- Vista 1: Login Exclusivo para Jhon -->
+          <div class="advisor-login-box" id="advisorLoginBox">
+            <div class="login-lock-icon">🔐</div>
+            <h3>Ingreso Exclusivo para Entrenar al Agente</h3>
+            <p>Ingresa tus credenciales de asesor autorizado para agregar o administrar los tips comerciales del agente.</p>
+
+            <form class="advisor-login-form" onsubmit="handleAdvisorLogin(event)">
+              <div class="form-group">
+                <label for="advisorUser">Usuario autorizado</label>
+                <input type="text" id="advisorUser" placeholder="Ingresa tu usuario..." autocomplete="username" required>
+              </div>
+              <div class="form-group">
+                <label for="advisorPass">Contraseña de asesor</label>
+                <div class="password-input-wrap">
+                  <input type="password" id="advisorPass" placeholder="Ingresa tu contraseña..." autocomplete="current-password" required>
+                  <button type="button" class="btn-toggle-pass" onclick="toggleAdvisorPassword()" title="Mostrar / Ocultar contraseña">👁️</button>
+                </div>
+              </div>
+              <div class="advisor-login-error" id="advisorLoginError" style="display: none;"></div>
+              <button type="submit" class="btn-advisor-submit" id="btnAdvisorLogin">
+                🔓 Desbloquear Panel de Entrenamiento
+              </button>
+            </form>
+          </div>
+
+          <!-- Vista 2: Panel Desbloqueado de Entrenamiento (Visible solo tras login de Jhon) -->
+          <div class="advisor-workspace" id="advisorWorkspace" style="display: none;">
+            <!-- Columna Izquierda: Formulario para Enseñar Nuevo Tip -->
+            <div class="advisor-form-card">
+              <div class="advisor-card-top">
+                <h3>✨ Enseñar un Nuevo Tip o Regla al Agente</h3>
+                <button type="button" class="btn-advisor-logout" onclick="handleAdvisorLogout()">🔒 Cerrar sesión</button>
+              </div>
+
+              <div class="quick-tip-templates">
+                <span class="template-label">Plantillas rápidas:</span>
+                <button type="button" class="chip" onclick="fillAdvisorTemplate('Tip de Cierre para Clientes Indecisos', 'Tip de Cierre de Ventas', 'Si el cliente está indeciso con el precio de contado, recuérdale que en Cel Red le entregamos su iPhone con obsequio incluido (Combo de accesorios o AirPods según referencia), factura legal SysCafé y que puede separarlo hoy mismo con solo el 20% para congelar el precio por 45 días.')">
+                  🎯 Cliente indeciso
+                </button>
+                <button type="button" class="chip" onclick="fillAdvisorTemplate('Tip sobre Renting y Krediya para Crédito Rápido', 'Plataformas de Crédito', 'Cuando el cliente pregunte por crédito fácil o diga que está reportado, destácale que con Renting para iPhone solo necesita dar del 20% al 30% de cuota inicial sin importar si tiene poco historial crediticio, y que en Android manejamos Credimóvil desde el 10% de inicial y Krediya con aprobación en minutos.')">
+                  💳 Tip Crédito / Reportados
+                </button>
+                <button type="button" class="chip" onclick="fillAdvisorTemplate('Tip de Confianza en Equipos Open Box Seminuevos', 'Argumento Comercial', 'Explica siempre al cliente que nuestros iPhone Open Box son 100% originales, revisados técnicamente en batería, pantalla y cámaras, libres de iCloud, con 6 meses de garantía directa en nuestras 14 sedes de Cel Red.')">
+                  📱 Confianza Open Box
+                </button>
+              </div>
+
+              <form onsubmit="handleCreateAdvisorTip(event)" class="advisor-tip-form">
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label for="tipTitulo">Título o Tema Clave (Palabras que activan el tip)</label>
+                    <input type="text" id="tipTitulo" placeholder="Ej: Tip para clientes que preguntan por batería de iPhone 15..." required>
+                  </div>
+                  <div class="form-group">
+                    <label for="tipCategoria">Categoría del Tip</label>
+                    <select id="tipCategoria">
+                      <option value="Tip de Cierre de Ventas">🎯 Tip de Cierre de Ventas</option>
+                      <option value="Argumento Comercial">💡 Argumento Comercial</option>
+                      <option value="Plataformas de Crédito">💳 Plataformas de Crédito</option>
+                      <option value="Promoción / Obsequio Especial">🎁 Promoción / Obsequio Especial</option>
+                      <option value="Manejo de Objeciones">🛡️ Manejo de Objeciones</option>
+                      <option value="Sedes y Atención en Tienda">📍 Sedes y Atención en Tienda</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="tipContenido">¿Qué quieres que el agente le diga o recomiende al cliente?</label>
+                  <textarea id="tipContenido" rows="4" placeholder="Escribe aquí el consejo, argumento comercial o instrucción que quieres enseñarle al agente..." required></textarea>
+                </div>
+
+                <div class="advisor-feedback" id="advisorFeedback" style="display: none;"></div>
+
+                <button type="submit" class="btn-advisor-submit" id="btnSaveTip">
+                  🧠 Enseñar y Guardar en la Memoria del Agente (pgvector)
+                </button>
+              </form>
+            </div>
+
+            <!-- Columna Derecha: Tips Aprendidos por el Agente -->
+            <div class="advisor-tips-card">
+              <div class="advisor-card-top">
+                <h3>📚 Tips Aprendidos por el Agente (<span id="advisorTipsCount">0</span>)</h3>
+                <button type="button" class="btn-refresh" onclick="loadAdvisorTips()" title="Actualizar lista">↻</button>
+              </div>
+              <p class="tips-helper-text">
+                Haz clic en <strong>"⚡ Probar en el Chat"</strong> en cualquier tip para ver cómo el agente lo utiliza en tiempo real.
+              </p>
+              <div class="advisor-tips-list" id="advisorTipsList">
+                <div class="history-empty">Aún no has registrado tips personalizados. ¡Agrega el primero a la izquierda!</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===============================================================
+         APARTADO 4: CÓMO ESTÁ CONSTRUIDO EL AGENTE (ARQUITECTURA)
+         =============================================================== -->
+    <section class="view-section arch-section" id="arquitecturaSistema" style="display: none;">
+      <div class="arch-container">
+        <div class="arch-panel">
+          <!-- Cabecera Ejecutiva -->
+          <div class="arch-panel-header">
+            <div>
+              <span class="arch-eyebrow">Arquitectura e Ingeniería del Sistema</span>
+              <h2 class="arch-title">Cómo está construido CEL RED — Agente Comercial IA</h2>
+            </div>
+            <div class="arch-summary-badges">
+              <div class="summary-metric">
+                <span class="summary-val">PostgreSQL 16</span>
+                <span class="summary-lbl">Catálogo &amp; Órdenes</span>
+              </div>
+              <div class="summary-metric">
+                <span class="summary-val">2048 Dim</span>
+                <span class="summary-lbl">pgvector + Gemma 2</span>
+              </div>
+              <div class="summary-metric">
+                <span class="summary-val">STT + TTS</span>
+                <span class="summary-lbl">Voz Comercial Fluida</span>
+              </div>
+              <div class="summary-metric">
+                <span class="summary-val">100% Pass</span>
+                <span class="summary-lbl">Verificación E2E</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tabla Ejecutiva Ordenada (7 Capas del Sistema) -->
+          <div class="arch-list">
+            <div class="arch-row">
+              <div class="arch-col-layer">
+                <span class="layer-index">01</span>
+                <span class="layer-name">Datos de la tienda</span>
+              </div>
+              <div class="arch-col-desc">
+                <strong>PostgreSQL 16 (`celred_db`)</strong> sincronizado con estructura <strong>SysCafé</strong>:
+                almacena catálogo de celulares y accesorios, existencias en tiempo real, precios en COP, órdenes de
+                venta, planes separados (abono del 20%) y bitácora de interacciones.
+              </div>
+              <div class="arch-col-stack">
+                <span class="stack-pill">SQLAlchemy Async</span>
+                <span class="stack-file">database.py</span>
+              </div>
+            </div>
+
+            <div class="arch-row">
+              <div class="arch-col-layer">
+                <span class="layer-index">02</span>
+                <span class="layer-name">Conocimiento RAG</span>
+              </div>
+              <div class="arch-col-desc">
+                <strong>pgvector + Embeddings Gemma 2</strong> (2048 dimensiones) con búsqueda por similitud de cosenos
+                sobre políticas de garantía (12 meses), reglamento de separados a 45 días, convenios
+                <strong>Sistecrédito / Addi</strong> y comparativas técnicas de modelos.
+              </div>
+              <div class="arch-col-stack">
+                <span class="stack-pill">pgvector 2048-D</span>
+                <span class="stack-file">vector_store.py</span>
+              </div>
+            </div>
+
+            <div class="arch-row">
+              <div class="arch-col-layer">
+                <span class="layer-index">03</span>
+                <span class="layer-name">Agente y Cierre</span>
+              </div>
+              <div class="arch-col-desc">
+                <strong>FastAPI</strong> y orquestador de ventas con embudo comercial (<code>En asesoría</code> →
+                <code>Candado de Confirmación</code> → <code>Venta / Separado Confirmado</code>), recomendador por
+                presupuesto/uso y cálculo automático de abonos iniciales.
+              </div>
+              <div class="arch-col-stack">
+                <span class="stack-pill">FastAPI + Ollama</span>
+                <span class="stack-file">orchestrator.py</span>
+              </div>
+            </div>
+
+            <div class="arch-row">
+              <div class="arch-col-layer">
+                <span class="layer-index">04</span>
+                <span class="layer-name">Voz multimodal</span>
+              </div>
+              <div class="arch-col-desc">
+                <strong>faster-whisper</strong> en CPU + <strong>Web Speech API</strong> para escucha exacta del cliente
+                sin sobrescritura, y <strong>edge-tts AlvaroNeural</strong> con conversor fonético de precios en pesos
+                colombianos e interrupción inmediata al hablar (<em>barge-in</em>).
+              </div>
+              <div class="arch-col-stack">
+                <span class="stack-pill">Whisper + EdgeTTS</span>
+                <span class="stack-file">stt / tts_service.py</span>
+              </div>
+            </div>
+
+            <div class="arch-row">
+              <div class="arch-col-layer">
+                <span class="layer-index">05</span>
+                <span class="layer-name">Consola comercial</span>
+              </div>
+              <div class="arch-col-desc">
+                Interfaz interactiva con vitrina de stock en vivo, accesos rápidos de asesoría, monitor de
+                cotización/orden en curso y listado en tiempo real de ventas y separados registrados.
+              </div>
+              <div class="arch-col-stack">
+                <span class="stack-pill">Retail HUD UI</span>
+                <span class="stack-file">frontend/</span>
+              </div>
+            </div>
+
+            <div class="arch-row">
+              <div class="arch-col-layer">
+                <span class="layer-index">06</span>
+                <span class="layer-name">Seguridad comercial</span>
+              </div>
+              <div class="arch-col-desc">
+                <strong>Candado de Confirmación y Verificador de Precios:</strong> el agente jamás inventa stock ni
+                autoriza descuentos fuera de la base de datos PostgreSQL, exigiendo confirmación de modelo y modalidad
+                de pago antes de emitir la orden.
+              </div>
+              <div class="arch-col-stack">
+                <span class="stack-pill">Price Guardrails</span>
+                <span class="stack-file">SysCafé Rules</span>
+              </div>
+            </div>
+
+            <div class="arch-row">
+              <div class="arch-col-layer">
+                <span class="layer-index">07</span>
+                <span class="layer-name">Evaluación y QA</span>
+              </div>
+              <div class="arch-col-desc">
+                Suite automatizada de pruebas que valida la creación aislada de <code>celred_db</code>, recomendación
+                por presupuesto, cálculo de separados del 20%, bloqueo de descuentos no autorizados y flujo de voz E2E.
+              </div>
+              <div class="arch-col-stack">
+                <span class="stack-pill">Suite Automatizada</span>
+                <span class="stack-file">scripts/test_*.py</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="/static/script.js?v=20261111"></script>
+</body>
+
+</html>

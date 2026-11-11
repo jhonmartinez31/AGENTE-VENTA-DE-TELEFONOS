@@ -1,0 +1,22 @@
+# Entornos virtuales de Python
+.venv/
+venv/
+env/
+
+# Caché de Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# Audios temporales generados por TTS/STT
+temp_audio/*
+!temp_audio/.gitkeep
+
+# Variables de entorno locales y archivos temporales
+.env
+.env.*
+APLICACION
+DOCUMENTACION
+PARA
+*.log

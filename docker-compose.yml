@@ -1,0 +1,38 @@
+services:
+  # Base de Datos PostgreSQL 16 con extensión pgvector para Cel Red
+  postgres_vector:
+    image: pgvector/pgvector:pg16
+    container_name: emergencias_pgvector
+    restart: always
+    environment:
+      POSTGRES_DB: celred_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgvector_data:/var/lib/postgresql/data
+      - ./backend/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Opcional: Contenedor para Ollama si no se ejecuta de forma nativa en el host
+  ollama:
+    image: ollama/ollama:latest
+    container_name: celred_ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_models:/root/.ollama
+    profiles:
+      - full-stack
+
+volumes:
+  pgvector_data:
+    name: emergencias_pgvector_data
+  ollama_models:
+    name: emergencias_ollama_models
