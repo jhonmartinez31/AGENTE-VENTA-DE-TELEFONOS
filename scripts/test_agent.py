@@ -71,10 +71,10 @@ def run_tests():
     print(f"[*] Cliente: {msg0c}")
     res0c = post_json("/api/chat/text", {"session_id": "test_celred_15pm", "mensaje": msg0c})
     txt0c = res0c["respuesta_texto"]
-    assert "iPhone 15 Pro Max de 256GB" in txt0c and "2.530.000" in txt0c, f"Debe devolver iPhone 15 Pro Max ($2.530.000), pero devolvió: {txt0c[:180]}"
+    assert "iPhone 15 Pro Max de 256GB" in txt0c and "2.480.000" in txt0c, f"Debe devolver iPhone 15 Pro Max ($2.480.000), pero devolvió: {txt0c[:180]}"
     assert "iPhone 15 Pro de 128GB" not in txt0c, "No debe devolver otros modelos como iPhone 15 Pro 128GB cuando se pide el 15 Pro Max"
     assert "addi" not in txt0c.lower() and "renting" not in txt0c.lower(), "No debe mostrar opciones de crédito cuando el cliente pregunta solo de contado"
-    print("[OK] Caso 0C APROBADO: 'iPhone 15 promax de contado' devuelve únicamente el iPhone 15 Pro Max ($2.530.000) y solo de contado.")
+    print("[OK] Caso 0C APROBADO: 'iPhone 15 promax de contado' devuelve únicamente el iPhone 15 Pro Max ($2.480.000) y solo de contado.")
 
     # Caso 1: Cierre de Compra / Plan Separado Confirmado
     print("\n--- CASO 1: Confirmación de Compra / Plan Separado en Cel Red ---")
@@ -96,9 +96,9 @@ def run_tests():
     res2 = post_json("/api/chat/text", {"session_id": "test_celred_2", "mensaje": msg2})
     print(f"[+] Intención detectada: {res2['prioridad_detectada']}")
     print(f"[+] Estado de la orden: {res2['estado_incidente']}")
-    assert "2.200.000" in res2["respuesta_texto"] and "1.790.000" in res2["respuesta_texto"], "Debe mostrar $2.200.000 (Nuevo) y $1.790.000 (Open Box Seminuevo)"
+    assert "2.300.000" in res2["respuesta_texto"] and "1.780.000" in res2["respuesta_texto"], "Debe mostrar $2.300.000 (Nuevo) y $1.780.000 (Open Box Seminuevo)"
     assert "COMBO 2" in res2["respuesta_texto"] and "COMBO 3" in res2["respuesta_texto"], "Debe incluir el obsequio COMBO 2 o COMBO 3"
-    print("[OK] Caso 2 APROBADO: Precios reales iPhone 15 ($2.200.000 / $1.790.000) y obsequio COMBO 2 / COMBO 3 verificados.")
+    print("[OK] Caso 2 APROBADO: Precios reales iPhone 15 Noviembre ($2.300.000 / $1.780.000) y obsequio COMBO 2 / COMBO 3 verificados.")
 
     # Caso 2B: Omisión de iPhone 11 y 12 (Solo se vende desde el iPhone 13 en adelante)
     print("\n--- CASO 2B: Regla de Catálogo Apple (Omitir iPhone 11 y 12, solo desde iPhone 13) ---")
@@ -109,15 +109,19 @@ def run_tests():
     assert "1.150.000" in res2b["respuesta_texto"], "Debe ofrecer el iPhone 13 128GB ($1.150.000) como punto de entrada"
     print("[OK] Caso 2B APROBADO: iPhone 11 y 12 omitidos; ofrece desde el iPhone 13 ($1.150.000 + Estuche y Vidrio).")
 
-    # Caso 2C: Plataformas de Financiación Android (Addi/Sistecrédito, Banco de Bogotá, Krediya 20%/30%, Credimóvil 10%/15%)
-    print("\n--- CASO 2C: Plataformas de Crédito Android (Addi, Banco de Bogotá, Krediya y Credimóvil) ---")
+    # Caso 2C: Plataformas de Financiación Android y Promociones de Noviembre Credimóvil
+    print("\n--- CASO 2C: Plataformas de Crédito Android y Promociones de Noviembre Credimóvil ---")
     msg2c = "¿En cuánto sale el Redmi Note 15 de 256/8 por Addi, Banco de Bogotá, Krediya y Credimóvil?"
     print(f"[*] Cliente: {msg2c}")
     res2c = post_json("/api/chat/text", {"session_id": "test_celred_2c", "mensaje": msg2c})
     assert "1.180.000" in res2c["respuesta_texto"] and "1.130.000" in res2c["respuesta_texto"], "Debe mostrar desembolso Addi ($1.180.000) y Banco de Bogotá ($1.130.000)"
     assert "150.200" in res2c["respuesta_texto"], "Debe mostrar inicial Krediya al 30% ($150.200)"
-    assert "103.000" in res2c["respuesta_texto"] and "154.500" in res2c["respuesta_texto"], "Debe mostrar iniciales Credimóvil al 10% ($103.000) y 15% ($154.500)"
-    print("[OK] Caso 2C APROBADO: Desembolsos e iniciales exactas en Addi ($1.180.000), Bogotá ($1.130.000), Krediya (30%: $150.200) y Credimóvil (10%: $103.000 / 15%: $154.500).")
+    assert "105.000" in res2c["respuesta_texto"] and "157.500" in res2c["respuesta_texto"], "Debe mostrar iniciales Credimóvil al 10% ($105.000) y 15% ($157.500)"
+    msg2c_promo = "¿Cuáles son las promociones de noviembre con Credimóvil y cuánto doy de inicial por el Samsung A17?"
+    res2c_promo = post_json("/api/chat/text", {"session_id": "test_celred_2c_promo", "mensaje": msg2c_promo})
+    txt_promo = res2c_promo["respuesta_texto"]
+    assert "50.000" in txt_promo and "70.000" in txt_promo and "850.000" in txt_promo, f"Debe mostrar promo Credimóvil Samsung A17 (10%: $50.000 / 15%: $70.000 y contado $850.000), pero devolvió: {txt_promo[:200]}"
+    print("[OK] Caso 2C APROBADO: Desembolsos e iniciales exactas y Promociones de Noviembre Credimóvil (Samsung A17: Contado $850.000 | Inicial 10% $50.000 | 15% $70.000).")
 
     # Caso 2D: Plataforma Renting iPhone (Poco historial crediticio / Reportados — Inicial 20% y 30%)
     print("\n--- CASO 2D: Plataforma Renting iPhone (Reportados / Poco historial — Inicial 20% y 30%) ---")

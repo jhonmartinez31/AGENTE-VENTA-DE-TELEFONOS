@@ -29,7 +29,11 @@ try:
     )
     from vector_store import search_relevant_protocols, format_rag_context  # type: ignore
     from tts_service import synthesize_speech  # type: ignore
-    from platform_prices import get_platform_info, format_platform_summary_markdown  # type: ignore
+    from platform_prices import (  # type: ignore
+        get_platform_info,
+        format_platform_summary_markdown,
+        format_credimovil_november_promos_markdown,
+    )
 except ImportError:
     from backend.database import (  # type: ignore
         Producto, Incidente, Interaccion, PrioridadIncidente, EstadoIncidente,
@@ -37,7 +41,11 @@ except ImportError:
     )
     from backend.vector_store import search_relevant_protocols, format_rag_context  # type: ignore
     from backend.tts_service import synthesize_speech  # type: ignore
-    from backend.platform_prices import get_platform_info, format_platform_summary_markdown  # type: ignore
+    from backend.platform_prices import (  # type: ignore
+        get_platform_info,
+        format_platform_summary_markdown,
+        format_credimovil_november_promos_markdown,
+    )
 
 logger = logging.getLogger("orchestrator_celred")
 logger.setLevel(logging.INFO)
@@ -608,8 +616,10 @@ class EmergencyOrchestrator:
                 (r"\b15\s*c\b", "15c"),
                 (r"\bnote\s*14\s*pro\b", "note 14 pro"),
                 (r"\bnote\s*14(?!\s*pro)\b", "note 14 4g"),
-                (r"\bnote\s*17\b", "note 17"),
-                (r"\bnote\s*15\s*pro\b", "note 15 pro"),
+                (r"\bnote\s*17\s*pro\b", "note 17 pro"),
+                (r"\bnote\s*17(?!\s*pro)\b", "redmi note 17 ("),
+                (r"\bnote\s*15\s*pro\s*(?:plus|\+)\b", "note 15 pro plus"),
+                (r"\bnote\s*15\s*pro(?!\s*plus|\s*\+)\b", "note 15 pro ("),
                 (r"\bnote\s*15(?!\s*pro)\b", "redmi note 15 ("),
                 (r"\bredmi\s*15(?!\s*c)\b", "redmi 15 ("),
                 (r"\bredmi\s*17\b", "redmi 17 ("),
@@ -875,8 +885,19 @@ class EmergencyOrchestrator:
         ))
         es_consulta_garantia = bool(re.search(r"\b(garant[ií]a\w*|imei|pol[ií]tica\w*|qu[eé] cubre|servicio t[eé]cnico)\b", text_lower))
         es_consulta_obsequios = bool(re.search(r"\b(obsequio\w*|regalo\w*|combo\w*|airpods|reloj|estuche|vidrio)\b", text_lower))
+        es_consulta_promo_credimovil = bool(
+            re.search(r"\b(promoci[oó]n\w*|promo\w*|noviembre)\b", text_lower)
+            and (
+                "credim" in text_lower
+                or "noviembre" in text_lower
+                or "inicial" in text_lower
+                or "crédito" in text_lower
+                or "credito" in text_lower
+                or not bool(re.search(r"\b(iphone|apple|airpods|combo)\b", text_lower))
+            )
+        )
         es_consulta_plataformas = bool(re.search(
-            r"\b(plataforma\w*|krediya|crediya|credim[oó]vil|renting|reportad\w*|historial\s*crediticio|vida\s*crediticia|banco\s*de\s*bogot[aá]|desembolso\w*)\b",
+            r"\b(plataforma\w*|krediya|crediya|credim[oó]vil|renting|reportad\w*|historial\s*crediticio|vida\s*crediticia|banco\s*de\s*bogot[aá]|confia|desembolso\w*)\b",
             text_lower
         ))
         es_consulta_sedes = bool(re.search(
@@ -930,8 +951,8 @@ class EmergencyOrchestrator:
                 equipos_sugeridos = [p for p in catalogo if p.sku in ["OBX-APL-IP13-128", "OBX-APL-IP15-128", "NEW-APL-IP15-128", "OBX-APL-IP16-128"]]
             elif "krediya" in text_lower or "crediya" in text_lower:
                 equipos_sugeridos = [p for p in catalogo if p.sku in ["AND-SAM-A16-128", "AND-SAM-A05-128", "AND-RED-N15P-256", "AND-RED-N17-256-8"]]
-            elif "credimovil" in text_lower or "credimóvil" in text_lower:
-                equipos_sugeridos = [p for p in catalogo if p.sku in ["AND-SAM-A05-128", "AND-RED-15-256", "AND-RED-N17-256-8", "AND-SAM-A17-256"]]
+            elif "credimovil" in text_lower or "credimóvil" in text_lower or es_consulta_promo_credimovil:
+                equipos_sugeridos = [p for p in catalogo if p.sku in ["AND-SAM-A07-128", "AND-SAM-A17-256", "AND-RED-15-256", "AND-HON-400S-256"]]
             elif es_consulta_obsequios:
                 equipos_sugeridos = [p for p in catalogo if p.sku in ["OBX-APL-IP13-128", "OBX-APL-IP15-128", "OBX-APL-IP16-128", "OBX-APL-IP16PM-256"]]
             elif pide_open_box:
@@ -1012,6 +1033,8 @@ class EmergencyOrchestrator:
             etapa_conversacion = "consulta_sedes"
         elif es_consulta_obsequios and not cambio_explicito_modelo and not es_compra_msg and not es_separado_msg:
             etapa_conversacion = "consulta_obsequios"
+        elif es_consulta_promo_credimovil and not cambio_explicito_modelo and not es_compra_msg and not es_separado_msg:
+            etapa_conversacion = "consulta_promo_credimovil"
         elif es_consulta_plataformas and not cambio_explicito_modelo and orden_actual is None and not es_compra_msg and not es_separado_msg:
             etapa_conversacion = "consulta_plataformas"
         elif sede_detectada is not None and producto_principal is not None:
@@ -1177,15 +1200,25 @@ class EmergencyOrchestrator:
 
         if ("credimóvil" in mp_low or "credimovil" in mp_low) and pinfo.get("credimovil"):
             c = pinfo["credimovil"]
-            txt = (
-                f"Valor plataforma Credimóvil: **{format_cop(c['plataforma'])}** — "
-                f"**Inicial al 10%: {format_cop(c['inicial_10'])}** | **Inicial al 15%: {format_cop(c['inicial_15'])}**"
-            )
-            voz = (
-                f"un valor en plataforma Credimóvil de {price_to_spoken_spanish(c['plataforma'])}, "
-                f"con cuota inicial al diez por ciento de {price_to_spoken_spanish(c['inicial_10'])}, "
-                f"o al quince por ciento de {price_to_spoken_spanish(c['inicial_15'])}"
-            )
+            if c.get("promo_noviembre"):
+                txt = (
+                    f"🔥 **PROMO NOVIEMBRE CREDIMÓVIL** (Valor plataforma **{format_cop(c['plataforma'])}**): "
+                    f"**Inicial Promo 10%: {format_cop(c['inicial_10'])}** | **Inicial Promo 15%: {format_cop(c['inicial_15'])}**"
+                )
+                voz = (
+                    f"la promoción de noviembre de Credimóvil, dando una cuota inicial promocional al diez por ciento de {price_to_spoken_spanish(c['inicial_10'])}, "
+                    f"o al quince por ciento de {price_to_spoken_spanish(c['inicial_15'])}"
+                )
+            else:
+                txt = (
+                    f"Valor plataforma Credimóvil: **{format_cop(c['plataforma'])}** — "
+                    f"**Inicial al 10%: {format_cop(c['inicial_10'])}** | **Inicial al 15%: {format_cop(c['inicial_15'])}**"
+                )
+                voz = (
+                    f"un valor en plataforma Credimóvil de {price_to_spoken_spanish(c['plataforma'])}, "
+                    f"con cuota inicial al diez por ciento de {price_to_spoken_spanish(c['inicial_10'])}, "
+                    f"o al quince por ciento de {price_to_spoken_spanish(c['inicial_15'])}"
+                )
             return txt, voz
 
         if "bogotá" in mp_low or "bogota" in mp_low:
@@ -1245,8 +1278,9 @@ class EmergencyOrchestrator:
                 f"no tengo permisos para modificar precios de lista, otorgar descuentos del 50% ni entregar equipos sin respaldo en caja. "
                 f"Todos nuestros precios de contado y de desembolso en plataformas son oficiales y verificados en nuestra base de datos PostgreSQL.\n\n"
                 f"💡 **Alternativas para ahorrar o financiar fácil hoy mismo:**\n"
-                f"- **Línea Open Box (Seminuevos Garantizados):** Tenemos iPhone desde el **iPhone 13 128GB en $1.150.000** (con obsequio de Estuche y Vidrio) o el **iPhone 15 128GB Open Box en $1.790.000**.\n"
-                f"- **Plataformas de Financiación:** Manejamos **Addi**, **Sistecrédito**, **Banco de Bogotá**, **Krediya** (inicial del 20% o 30%), **Credimóvil** (inicial del 10% o 15%) y **Renting para iPhone** (ideal para clientes con poco historial crediticio o reportados, con inicial del 20% o 30%).\n"
+                f"- **Línea Open Box (Seminuevos Garantizados):** Tenemos iPhone desde el **iPhone 13 128GB en $1.150.000** (con obsequio de Estuche y Vidrio) o el **iPhone 15 128GB Open Box en $1.780.000**.\n"
+                f"- **🔥 Promociones de Noviembre con Credimóvil:** Lleva tu Android dando iniciales promocionales desde **$30.000** (*Samsung A07*), **$50.000** (*Samsung A17, Redmi 15, Redmi 17*), **$60.000** (*Tecno Spark 50*), **$66.000** (*Honor 400*) o **$70.000** (*Infinix Hot 70, Redmi 15C*).\n"
+                f"- **Plataformas de Financiación:** Manejamos **Addi**, **Sistecrédito**, **Confia / Banco de Bogotá**, **Krediya** (iniciales del 30% al 50%), **Credimóvil** (inicial del 10% o 15%) y **Renting para iPhone** (ideal para clientes con poco historial crediticio o reportados, con inicial del 20% o 30%).\n"
                 f"- **Sistema de Separado Cel Red:** Separa cualquier equipo con el **20% de abono inicial** y págalo hasta en 45 días sin intereses."
             )
             return texto
@@ -1259,11 +1293,11 @@ class EmergencyOrchestrator:
                 f"✨ **Opciones similares disponibles en iPhone 13 de 128GB (Cotización {orden.codigo}):**\n"
                 f"- **iPhone 13 de 128GB (Open Box - Seminuevo):**\n"
                 f"  - Contado: **$1.150.000** | 🎁 **Obsequio: Estuche y Vidrio**\n"
-                f"  - Desembolso **Addi / Sistecrédito**: **$1.750.000** | **Banco de Bogotá**: **$1.500.000**\n"
+                f"  - Desembolso **Addi / Sistecrédito**: **$1.850.000** | **Confia / Banco de Bogotá**: **$1.600.000**\n"
                 f"  - **Renting iPhone *(Reportados o poco historial)*:** Plataforma **$1.850.000** (*Inicial 20%: **$370.000*** | *Inicial 30%: **$555.000***)\n"
                 f"- **iPhone 13 128GB Activo (Nuevo):**\n"
                 f"  - Contado: **$1.840.000** | 🎁 **Obsequio: Estuche y Vidrio**\n"
-                f"  - Desembolso **Addi / Sistecrédito**: **$2.470.000** | **Banco de Bogotá**: **$2.240.000**\n"
+                f"  - Desembolso **Addi / Sistecrédito**: **$2.470.000** | **Confia / Banco de Bogotá**: **$2.240.000**\n"
                 f"  - **Renting iPhone *(Reportados o poco historial)*:** Plataforma **$2.450.000** (*Inicial 20%: **$490.000*** | *Inicial 30%: **$735.000***)\n\n"
                 f"🔒 *¿Te gustaría llevar alguna de estas opciones similares en **iPhone 13 de 128GB** de contado o por plataforma?*"
             )
@@ -1299,37 +1333,58 @@ class EmergencyOrchestrator:
         if etapa == "consulta_obsequios":
             return (
                 f"🎁 **Tabla Oficial de Obsequios y Combos por Compra de iPhone en Cel Red** (Referencia **{orden.codigo}**):\n\n"
-                f"Recuerda que comercializamos **desde el iPhone 13 en adelante** y estos son los obsequios incluidos según la referencia:\n\n"
+                f"Recuerda que comercializamos **desde el iPhone 13 hasta el iPhone 17** y estos son los obsequios incluidos según la referencia:\n\n"
                 f"1. **Estuche y Vidrio Templado:**\n"
                 f"   - **iPhone 13 de 128GB** (*$1.150.000 Open Box* / *$1.840.000 Nuevo*)\n"
                 f"2. **COMBO 2 (Cubo, Cable, Estuche y Vidrio) o COMBO 3 (AirPods) — A elección del cliente:**\n"
                 f"   - **iPhone 13 Pro Max 128GB** (*$1.890.000 Open Box*)\n"
-                f"   - **iPhone 14 Pro 128GB** (*$1.820.000 Open Box*)\n"
+                f"   - **iPhone 14 Pro 128GB** (*$1.750.000 Open Box*)\n"
                 f"   - **iPhone 14 Pro Max 128GB** (*$1.980.000 Open Box*)\n"
-                f"   - **iPhone 15 de 128GB** (*$1.790.000 Open Box* / *$2.200.000 Nuevo*)\n"
-                f"   - **iPhone 15 Pro de 128GB** (*$2.050.000 Open Box*)\n"
-                f"   - **iPhone 15 Pro Max de 256GB** (*$2.530.000 Open Box*)\n"
+                f"   - **iPhone 15 de 128GB** (*$1.780.000 Open Box* / *$2.300.000 Nuevo*)\n"
+                f"   - **iPhone 15 Pro de 128GB** (*$2.080.000 Open Box*)\n"
+                f"   - **iPhone 15 Pro Max de 256GB** (*$2.480.000 Open Box*)\n"
                 f"3. **COMBO 4 (Cubo, Cable, Estuche, Vidrio y AirPods):**\n"
-                f"   - **iPhone 16 de 128GB** (*$2.180.000 Open Box* / *$2.600.000 Nuevo*)\n"
+                f"   - **iPhone 16 de 128GB** (*$2.180.000 Open Box* / *$2.650.000 Nuevo*)\n"
                 f"4. **COMBO 5 (Reloj Inteligente, Cable, Cubo, AirPods, Vidrio y Estuche):**\n"
                 f"   - **iPhone 16 Pro 128GB** (*$2.580.000 Open Box*)\n"
                 f"   - **iPhone 16 Pro 256GB** (*$2.650.000 Open Box*)\n"
-                f"   - **iPhone 16 Pro Max 256GB** (*$2.950.000 Open Box*)\n\n"
-                f"📱 *¿Cuál de estos modelos de iPhone te gustaría cotizar hoy (de contado, Addi, Sistecrédito, Banco de Bogotá o Renting)?*"
+                f"   - **iPhone 16 Pro Max 256GB** (*$2.930.000 Open Box*)\n\n"
+                f"📱 *¿Cuál de estos modelos de iPhone te gustaría cotizar hoy (de contado, Addi, Sistecrédito, Confia/Banco de Bogotá o Renting)?*"
+            )
+
+        if etapa == "consulta_promo_credimovil":
+            tabla_promos = format_credimovil_november_promos_markdown()
+            return (
+                f"🎉 **¡Promociones Oficiales de Noviembre con Credimóvil en Cel Red!** (Referencia **{orden.codigo}**)\n\n"
+                f"Durante noviembre (con vigencia hasta nueva orden) tenemos **cuotas iniciales rebajadas al 10% y al 15%** en estas **9 referencias seleccionadas** financiando con **Credimóvil**:\n\n"
+                f"{tabla_promos}\n\n"
+                f"💵 **Precios de contado de estas referencias en promoción:**\n"
+                f"- **Samsung Galaxy A07 (128/6):** Contado **$520.000** | *Inicial Credimóvil 10%: **$30.000** / 15%: **$60.000***\n"
+                f"- **Samsung Galaxy A17 (256/8):** Contado **$850.000** | *Inicial Credimóvil 10%: **$50.000** / 15%: **$70.000***\n"
+                f"- **Redmi 17 (256/4):** Contado **$670.000** | *Inicial Credimóvil 10%: **$50.000** / 15%: **$90.000***\n"
+                f"- **Redmi 15 (256/8):** Contado **$680.000** | *Inicial Credimóvil 10%: **$50.000** / 15%: **$90.000***\n"
+                f"- **Tecno Spark 50 (256/4):** Contado **$690.000** | *Inicial Credimóvil 10%: **$60.000** / 15%: **$115.500***\n"
+                f"- **Honor 400 Smart (256/6):** Contado **$700.000** | *Inicial Credimóvil 10%: **$66.000** / 15%: **$114.000***\n"
+                f"- **Infinix Hot 70 (256/4):** Contado **$675.000** | *Inicial Credimóvil 10%: **$70.000** / 15%: **$121.700***\n"
+                f"- **Redmi 15C (256/8):** Contado **$620.000** | *Inicial Credimóvil 10%: **$70.000** / 15%: **$113.500***\n"
+                f"- **Infinix Hot 60 Pro Plus (256/8):** Contado **$870.000** | *Inicial Credimóvil 10%: **$90.000** / 15%: **$150.000***\n\n"
+                f"👉 *¿Cuál de estos celulares en **Promoción de Noviembre con Credimóvil** te gustaría separar o llevar hoy mismo?*"
             )
 
         if etapa == "consulta_plataformas":
+            tabla_promos = format_credimovil_november_promos_markdown()
             return (
                 f"💳 **Plataformas Oficiales de Financiación y Desembolso en Cel Red** (Referencia **{orden.codigo}**):\n\n"
-                f"En **Cel Red** manejamos **5 modalidades de crédito** según tu perfil y el equipo que elijas (Android o iPhone desde el 13 en adelante):\n\n"
+                f"En **Cel Red** manejamos **5 modalidades de crédito** según tu perfil y el equipo que elijas (Android o iPhone desde el 13 hasta el 17):\n\n"
                 f"1. **Addi y Sistecrédito (Android e iPhone):**\n"
-                f"   - Se realiza por el **valor de desembolso** correspondiente a cada referencia (ej. *Samsung A05*: **$710.000**, *Redmi Note 15 Pro*: **$1.420.000**, *iPhone 13 128GB Open Box*: **$1.750.000**, *iPhone 15 128GB Open Box*: **$2.580.000**).\n"
-                f"2. **Banco de Bogotá (Android e iPhone):**\n"
-                f"   - Desembolso directo con tasa preferencial (ej. *Samsung A05*: **$650.000**, *Redmi Note 15 Pro*: **$1.270.000**, *iPhone 13 128GB Open Box*: **$1.500.000**, *iPhone 15 128GB Open Box*: **$2.230.000**).\n"
+                f"   - Se realiza por el **valor de desembolso** correspondiente a cada referencia (ej. *Samsung A05*: **$710.000**, *Redmi Note 15 Pro*: **$1.420.000**, *iPhone 13 128GB Open Box*: **$1.850.000**, *iPhone 15 128GB Open Box*: **$2.630.000**).\n"
+                f"2. **Confia / Banco de Bogotá (Android e iPhone):**\n"
+                f"   - Desembolso directo con tasa preferencial (ej. *Samsung A05*: **$650.000**, *Redmi Note 15 Pro*: **$1.270.000**, *iPhone 13 128GB Open Box*: **$1.600.000**, *iPhone 15 128GB Open Box*: **$2.280.000**).\n"
                 f"3. **Krediya (Especial Android):**\n"
-                f"   - Según aprobación das una **cuota inicial del 30% o del 20%** (ej. *Samsung A16*: Plataforma $1.050.000 con **inicial 30% de solo $40.000**; *Samsung A05*: Plataforma $770.000 con **inicial 30% de $51.000**; *Redmi Note 15 Pro*: Plataforma $1.800.000 con **inicial 30% de $160.000**).\n"
-                f"4. **Credimóvil (Especial Android):**\n"
-                f"   - Llevas tu equipo dando solo el **10% o el 15% de cuota inicial** según aprobación (ej. *Samsung A05*: Plataforma $600.000 con **inicial 10% de $60.000** o **15% de $90.000**; *Redmi 15*: Plataforma $980.000 con **inicial 10% de $98.000** o **15% de $147.000**).\n"
+                f"   - Según aprobación das una **cuota inicial del 30%, 40%, 45% o 50%** (ej. *Samsung A16*: Plataforma $1.050.000 con **inicial 30% de solo $40.000**; *Samsung A05*: Plataforma $770.000 con **inicial 30% de $51.000**; *Redmi Note 15 Pro*: Plataforma $1.800.000 con **inicial 30% de $180.000**).\n"
+                f"4. **Credimóvil (Especial Android — Inicial 10% o 15% + 🔥 PROMOCIONES DE NOVIEMBRE):**\n"
+                f"   - Llevas tu equipo dando solo el **10% o el 15% de cuota inicial** según aprobación.\n"
+                f"{tabla_promos}\n"
                 f"5. **Renting iPhone *(Exclusivo para iPhone — Ideal para personas reportadas o con poco historial crediticio)*:**\n"
                 f"   - Te aprobamos tu iPhone dando una **cuota inicial del 20% o del 30%** según el estudio:\n"
                 f"     - **iPhone 13 128GB Open Box:** Valor plataforma **$1.850.000** | **Inicial 20%: $370.000** | **Inicial 30%: $555.000**\n"
@@ -1602,6 +1657,15 @@ class EmergencyOrchestrator:
                 "Los modelos trece Pro Max, catorce Pro, catorce Pro Max y toda la línea iPhone quince incluyen a tu elección el Combo dos con cubo, cable, estuche y vidrio, o el Combo tres con AirPods. "
                 "El iPhone dieciséis normal incluye el Combo cuatro con cubo, cable, estuche, vidrio y AirPods, "
                 "y los iPhone dieciséis Pro y dieciséis Pro Max incluyen el Combo cinco completo con reloj inteligente, AirPods, cubo, cable, vidrio y estuche. ¿Cuál modelo te gustaría cotizar?"
+            )
+            return self._prepare_spoken_text(guion)
+
+        if etapa == "consulta_promo_credimovil":
+            guion = (
+                "En Cel Red tenemos las promociones de noviembre con Credimóvil vigentes hasta nueva orden, con cuotas iniciales súper bajas al diez y quince por ciento. "
+                "Por ejemplo, llevas el Samsung A cero siete con inicial desde treinta mil pesos; el Samsung A diecisiete, el Redmi quince o el Redmi diecisiete con inicial desde cincuenta mil pesos; "
+                "el Tecno Spark cincuenta con sesenta mil pesos; el Honor cuatrocientos con sesenta y seis mil pesos; el Infinix Hot setenta o el Redmi quince C con setenta mil pesos; "
+                "y el Infinix Hot sesenta Pro Plus con noventa mil pesos de inicial. ¿Cuál de estos equipos te gustaría llevar hoy?"
             )
             return self._prepare_spoken_text(guion)
 

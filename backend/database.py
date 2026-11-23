@@ -339,12 +339,12 @@ CATALOGO_INICIAL_CELRED = [
         "modelo": "Samsung Galaxy A17 (256GB / 8GB RAM) Nuevo",
         "categoria": "Celular Nuevo",
         "gama": "Gama Media",
-        "especificaciones": "Equipo Nuevo Sellado. 256GB de almacenamiento y 8GB RAM, pantalla Super AMOLED y triple cámara de alta definición.",
-        "precio_cop": 720000,
+        "especificaciones": "Equipo Nuevo Sellado. 256GB de almacenamiento y 8GB RAM, pantalla Super AMOLED y triple cámara de alta definición. 🔥 PROMO NOVIEMBRE CREDIMÓVIL: Inicial 10% $50.000 | Inicial 15% $70.000.",
+        "precio_cop": 850000,
         "stock": 9,
         "colores_disponibles": "Azul Oscuro, Negro, Azul Claro",
         "garantia_meses": 12,
-        "destacado_para": "Calidad Samsung con 256GB y 8GB RAM a excelente precio ($720.000)"
+        "destacado_para": "Calidad Samsung con 256GB y 8GB RAM ($850.000) + Promo Noviembre Credimóvil (Inicial $50.000)"
     },
     {
         "sku": "AND-SAM-A07-128",
@@ -352,12 +352,12 @@ CATALOGO_INICIAL_CELRED = [
         "modelo": "Samsung Galaxy A07 (128GB / 6GB RAM) Nuevo",
         "categoria": "Celular Nuevo",
         "gama": "Gama Económica",
-        "especificaciones": "Equipo Nuevo Sellado. 128GB de almacenamiento y 6GB RAM, batería de larga duración 5000mAh y cámara de 50MP.",
-        "precio_cop": 470000,
+        "especificaciones": "Equipo Nuevo Sellado. 128GB de almacenamiento y 6GB RAM, batería de larga duración 5000mAh y cámara de 50MP. 🔥 PROMO NOVIEMBRE CREDIMÓVIL: Inicial 10% $30.000 | Inicial 15% $60.000.",
+        "precio_cop": 520000,
         "stock": 10,
         "colores_disponibles": "Negro, Azul, Verde",
         "garantia_meses": 12,
-        "destacado_para": "Celular Samsung económico con 6GB de RAM por menos de $500.000"
+        "destacado_para": "Celular Samsung con 6GB de RAM ($520.000) + Promo Noviembre Credimóvil (Inicial $30.000)"
     },
     {
         "sku": "AND-SAM-A37-256",
@@ -514,6 +514,45 @@ CATALOGO_INICIAL_CELRED = [
         "colores_disponibles": "Negro, Azul, Verde",
         "garantia_meses": 12,
         "destacado_para": "Equilibrio total en gama media por $780.000"
+    },
+    {
+        "sku": "AND-RED-N17P-512",
+        "marca": "Xiaomi Redmi",
+        "modelo": "Redmi Note 17 Pro 5G (512GB / 8GB RAM) Nuevo",
+        "categoria": "Celular Nuevo",
+        "gama": "Gama Media-Alta",
+        "especificaciones": "Equipo Nuevo Sellado. Conectividad 5G, enorme capacidad de 512GB de almacenamiento y 8GB RAM, cámara Pro y pantalla AMOLED 120Hz.",
+        "precio_cop": 1360000,
+        "stock": 6,
+        "colores_disponibles": "Negro, Azul, Titanio",
+        "garantia_meses": 12,
+        "destacado_para": "Redmi Note 17 Pro 5G con 512GB de memoria ($1.360.000)"
+    },
+    {
+        "sku": "AND-RED-N15PP-5G",
+        "marca": "Xiaomi Redmi",
+        "modelo": "Redmi Note 15 Pro Plus 5G Nuevo",
+        "categoria": "Celular Nuevo",
+        "gama": "Gama Media-Alta",
+        "especificaciones": "Equipo Nuevo Sellado. Versión Pro Plus 5G con pantalla curva AMOLED, cámara de ultra alta resolución y carga hiperrápida.",
+        "precio_cop": 1450000,
+        "stock": 5,
+        "colores_disponibles": "Negro, Blanco, Morado",
+        "garantia_meses": 12,
+        "destacado_para": "Máxima versión Redmi Note 15 Pro Plus 5G ($1.450.000)"
+    },
+    {
+        "sku": "AND-POC-X8PM-256",
+        "marca": "Xiaomi POCO",
+        "modelo": "POCO X8 Pro Max (256GB / 12GB RAM) Nuevo",
+        "categoria": "Celular Nuevo",
+        "gama": "Gaming / Gama Alta",
+        "especificaciones": "Equipo Nuevo Sellado. 256GB de almacenamiento y 12GB RAM, procesador gamer de alto desempeño y pantalla 120Hz.",
+        "precio_cop": 1820000,
+        "stock": 5,
+        "colores_disponibles": "Negro, Amarillo POCO, Gris",
+        "garantia_meses": 12,
+        "destacado_para": "Potencia POCO X8 Pro Max con 12GB RAM y 256GB ($1.820.000)"
     },
     {
         "sku": "AND-POC-F8P-256",
@@ -694,12 +733,12 @@ CATALOGO_INICIAL_CELRED = [
         "modelo": "iPhone 15 128GB Activo (Nuevo)",
         "categoria": "Celular Nuevo",
         "gama": "Gama Alta",
-        "especificaciones": "Equipo iPhone Nuevo Activo de 128GB. Isla Dinámica (Dynamic Island), cámara de 48MP con zoom 2x, puerto USB-C y Chip A16 Bionic.",
-        "precio_cop": 2200000,
+        "especificaciones": "Equipo iPhone Nuevo Activo de 128GB. Isla Dinámica (Dynamic Island), cámara de 48MP con zoom 2x, puerto USB-C y Chip A16 Bionic. 🎁 OBSEQUIO INCLUIDO: COMBO 2 o COMBO 3.",
+        "precio_cop": 2300000,
         "stock": 6,
         "colores_disponibles": "Negro, Azul, Rosa, Verde",
         "garantia_meses": 12,
-        "destacado_para": "iPhone 15 Nuevo con Isla Dinámica y USB-C ($2.200.000)"
+        "destacado_para": "iPhone 15 Nuevo con Isla Dinámica y USB-C ($2.300.000)"
     },
     {
         "sku": "NEW-APL-IP16-128",
@@ -707,12 +746,12 @@ CATALOGO_INICIAL_CELRED = [
         "modelo": "iPhone 16 128GB Activo (Nuevo)",
         "categoria": "Celular Nuevo",
         "gama": "Gama Alta",
-        "especificaciones": "Equipo iPhone Nuevo Activo de 128GB. Botón de Control de Cámara, Chip A18 compatible con Apple Intelligence y cámara Fusion de 48MP.",
-        "precio_cop": 2600000,
+        "especificaciones": "Equipo iPhone Nuevo Activo de 128GB. Botón de Control de Cámara, Chip A18 compatible con Apple Intelligence y cámara Fusion de 48MP. 🎁 OBSEQUIO INCLUIDO: COMBO 4.",
+        "precio_cop": 2650000,
         "stock": 5,
         "colores_disponibles": "Negro, Blanco, Azul Ultramar, Rosa, Verde Azulado",
         "garantia_meses": 12,
-        "destacado_para": "iPhone 16 Nuevo con Control de Cámara y Chip A18 ($2.600.000)"
+        "destacado_para": "iPhone 16 Nuevo con Control de Cámara y Chip A18 ($2.650.000)"
     },
     {
         "sku": "NEW-APL-IP17-256",
@@ -721,11 +760,11 @@ CATALOGO_INICIAL_CELRED = [
         "categoria": "Celular Nuevo",
         "gama": "Gama Alta",
         "especificaciones": "Equipo iPhone 17 Nuevo Sellado de 256GB. Pantalla ProMotion OLED de nueva generación, cámaras avanzadas de 48MP y máxima batería.",
-        "precio_cop": 3300000,
+        "precio_cop": 3380000,
         "stock": 4,
         "colores_disponibles": "Negro, Plata, Azul, Verde",
         "garantia_meses": 12,
-        "destacado_para": "iPhone 17 Nuevo de 256GB ($3.300.000)"
+        "destacado_para": "iPhone 17 Nuevo de 256GB ($3.380.000)"
     },
     {
         "sku": "NEW-APL-IP17P-256",
@@ -747,11 +786,11 @@ CATALOGO_INICIAL_CELRED = [
         "categoria": "Celular Nuevo",
         "gama": "Gama Alta Flagship",
         "especificaciones": "Equipo iPhone 17 Pro Max Nuevo Sellado de 256GB en colores exclusivos Azul y Naranja. Pantalla gigante de 6.9 pulgadas y máxima autonomía.",
-        "precio_cop": 4250000,
+        "precio_cop": 4300000,
         "stock": 3,
         "colores_disponibles": "Azul, Naranja",
         "garantia_meses": 12,
-        "destacado_para": "iPhone 17 Pro Max 256GB en tonos Azul y Naranja ($4.250.000)"
+        "destacado_para": "iPhone 17 Pro Max 256GB en tonos Azul y Naranja ($4.300.000)"
     },
     {
         "sku": "NEW-APL-IP17PM-256-SIL",
@@ -760,11 +799,11 @@ CATALOGO_INICIAL_CELRED = [
         "categoria": "Celular Nuevo",
         "gama": "Gama Alta Flagship",
         "especificaciones": "Equipo iPhone 17 Pro Max Nuevo Sellado de 256GB acabado Silver (Plata). Pantalla ProMotion 6.9\" y teleobjetivo tetraprisma.",
-        "precio_cop": 4300000,
+        "precio_cop": 4350000,
         "stock": 3,
         "colores_disponibles": "Silver (Plata)",
         "garantia_meses": 12,
-        "destacado_para": "iPhone 17 Pro Max 256GB edición Silver ($4.300.000)"
+        "destacado_para": "iPhone 17 Pro Max 256GB edición Silver ($4.350.000)"
     },
     {
         "sku": "NEW-SAM-A57-256",
@@ -786,11 +825,11 @@ CATALOGO_INICIAL_CELRED = [
         "categoria": "Celular Nuevo",
         "gama": "Gama Alta Flagship",
         "especificaciones": "Equipo Nuevo Sellado. S-Pen integrado, cámara de 200MP con zoom óptico avanzado, Snapdragon Elite, 512GB y 12GB RAM.",
-        "precio_cop": 3300000,
+        "precio_cop": 3150000,
         "stock": 4,
         "colores_disponibles": "Titanio Negro, Titanio Gris, Titanio Azul",
         "garantia_meses": 12,
-        "destacado_para": "Flagship Samsung S25 Ultra con 512GB y S-Pen ($3.300.000)"
+        "destacado_para": "Flagship Samsung S25 Ultra con 512GB y S-Pen ($3.150.000)"
     },
     {
         "sku": "NEW-SAM-S25U-256",
@@ -799,11 +838,11 @@ CATALOGO_INICIAL_CELRED = [
         "categoria": "Celular Nuevo",
         "gama": "Gama Alta Flagship",
         "especificaciones": "Equipo Nuevo Sellado. Cámara 200MP, S-Pen integrado, chasis de titanio, Galaxy AI, 256GB de memoria y 12GB RAM.",
-        "precio_cop": 2980000,
+        "precio_cop": 2950000,
         "stock": 4,
         "colores_disponibles": "Titanio Negro, Titanio Gris, Titanio Plata",
         "garantia_meses": 12,
-        "destacado_para": "Gama Ultra de Samsung por debajo de 3 millones ($2.980.000)"
+        "destacado_para": "Gama Ultra de Samsung por debajo de 3 millones ($2.950.000)"
     },
     {
         "sku": "NEW-SAM-S26U-512",
@@ -825,11 +864,11 @@ CATALOGO_INICIAL_CELRED = [
         "categoria": "Celular Nuevo",
         "gama": "Gama Alta Flagship",
         "especificaciones": "Equipo Nuevo Sellado. Última generación S26 Ultra de 256GB / 12GB RAM con S-Pen y zoom telescópico.",
-        "precio_cop": 3340000,
+        "precio_cop": 3350000,
         "stock": 4,
         "colores_disponibles": "Titanio Negro, Titanio Gris",
         "garantia_meses": 12,
-        "destacado_para": "Samsung S26 Ultra de última generación en 256GB ($3.340.000)"
+        "destacado_para": "Samsung S26 Ultra de última generación en 256GB ($3.350.000)"
     },
     {
         "sku": "NEW-APL-MACNEO-256",
@@ -934,11 +973,24 @@ CATALOGO_INICIAL_CELRED = [
         "categoria": "Open Box (Seminuevo)",
         "gama": "Open Box Seminuevo",
         "especificaciones": "Equipo Seminuevo Open Box garantizado (frente a $2.100.000 nuevo). 128GB, Modo Acción y excelente cámara nocturna.",
-        "precio_cop": 1300000,
+        "precio_cop": 1320000,
         "stock": 6,
         "colores_disponibles": "Medianoche, Morado, Blanco Estelar, Azul",
         "garantia_meses": 6,
-        "destacado_para": "iPhone 14 128GB Seminuevo en $1.300.000 (ahorras $800.000 frente al nuevo)"
+        "destacado_para": "iPhone 14 128GB Seminuevo en $1.320.000 (ahorras $780.000 frente al nuevo)"
+    },
+    {
+        "sku": "OBX-APL-IP14-256",
+        "marca": "Apple",
+        "modelo": "iPhone 14 de 256GB (Open Box - Seminuevo)",
+        "categoria": "Open Box (Seminuevo)",
+        "gama": "Open Box Seminuevo",
+        "especificaciones": "Equipo Seminuevo Open Box garantizado con doble capacidad de 256GB, Modo Acción y excelente cámara nocturna.",
+        "precio_cop": 1390000,
+        "stock": 5,
+        "colores_disponibles": "Medianoche, Morado, Blanco Estelar, Azul",
+        "garantia_meses": 6,
+        "destacado_para": "iPhone 14 de 256GB Seminuevo en $1.390.000"
     },
     {
         "sku": "OBX-APL-IP14P-128",
@@ -947,11 +999,11 @@ CATALOGO_INICIAL_CELRED = [
         "categoria": "Open Box (Seminuevo)",
         "gama": "Open Box Seminuevo",
         "especificaciones": "Equipo Seminuevo Open Box. Isla Dinámica (Dynamic Island), cámara principal de 48MP, pantalla Always-On 120Hz y Chip A16. 🎁 OBSEQUIO INCLUIDO (a elegir): COMBO 2 (Cubo, Cable, Estuche, Vidrio) o COMBO 3 (AirPods).",
-        "precio_cop": 1820000,
+        "precio_cop": 1750000,
         "stock": 4,
         "colores_disponibles": "Morado Oscuro, Negro Espacial, Plata",
         "garantia_meses": 6,
-        "destacado_para": "iPhone 14 Pro 128GB ($1.820.000) + Obsequio: Combo 2 (Cubo, Cable, Estuche, Vidrio) o Combo 3 (AirPods)"
+        "destacado_para": "iPhone 14 Pro 128GB ($1.750.000) + Obsequio: Combo 2 (Cubo, Cable, Estuche, Vidrio) o Combo 3 (AirPods)"
     },
     {
         "sku": "OBX-APL-IP14P-256",
@@ -998,12 +1050,12 @@ CATALOGO_INICIAL_CELRED = [
         "modelo": "iPhone 15 de 128GB (Open Box - Seminuevo)",
         "categoria": "Open Box (Seminuevo)",
         "gama": "Open Box Seminuevo",
-        "especificaciones": "Equipo Seminuevo Open Box (frente a $2.200.000 nuevo). Isla Dinámica, puerto USB-C, cámara de 48MP y Chip A16 Bionic. 🎁 OBSEQUIO INCLUIDO (a elegir): COMBO 2 (Cubo, Cable, Estuche, Vidrio) o COMBO 3 (AirPods).",
-        "precio_cop": 1790000,
+        "especificaciones": "Equipo Seminuevo Open Box (frente a $2.300.000 nuevo). Isla Dinámica, puerto USB-C, cámara de 48MP y Chip A16 Bionic. 🎁 OBSEQUIO INCLUIDO (a elegir): COMBO 2 (Cubo, Cable, Estuche, Vidrio) o COMBO 3 (AirPods).",
+        "precio_cop": 1780000,
         "stock": 5,
         "colores_disponibles": "Negro, Azul, Rosa, Verde",
         "garantia_meses": 6,
-        "destacado_para": "iPhone 15 128GB Seminuevo ($1.790.000) + Obsequio: Combo 2 (Cubo, Cable, Estuche, Vidrio) o Combo 3 (AirPods)"
+        "destacado_para": "iPhone 15 128GB Seminuevo ($1.780.000) + Obsequio: Combo 2 (Cubo, Cable, Estuche, Vidrio) o Combo 3 (AirPods)"
     },
     {
         "sku": "OBX-APL-IP15P-128",
@@ -1012,11 +1064,11 @@ CATALOGO_INICIAL_CELRED = [
         "categoria": "Open Box (Seminuevo)",
         "gama": "Open Box Seminuevo",
         "especificaciones": "Equipo Seminuevo Open Box. Diseño en Titanio grado aeroespacial, Botón de Acción, Chip A17 Pro, USB-C y triple cámara Pro. 🎁 OBSEQUIO INCLUIDO (a elegir): COMBO 2 (Cubo, Cable, Estuche, Vidrio) o COMBO 3 (AirPods).",
-        "precio_cop": 2050000,
+        "precio_cop": 2080000,
         "stock": 4,
         "colores_disponibles": "Titanio Natural, Titanio Azul, Titanio Negro, Titanio Blanco",
         "garantia_meses": 6,
-        "destacado_para": "iPhone 15 Pro 128GB ($2.050.000) + Obsequio: Combo 2 (Cubo, Cable, Estuche, Vidrio) o Combo 3 (AirPods)"
+        "destacado_para": "iPhone 15 Pro 128GB ($2.080.000) + Obsequio: Combo 2 (Cubo, Cable, Estuche, Vidrio) o Combo 3 (AirPods)"
     },
     {
         "sku": "OBX-APL-IP15P-256",
@@ -1029,7 +1081,7 @@ CATALOGO_INICIAL_CELRED = [
         "stock": 4,
         "colores_disponibles": "Titanio Natural, Titanio Negro, Titanio Azul",
         "garantia_meses": 6,
-        "destacado_para": "iPhone 15 Pro de 256GB al mismo precio que el 15 normal nuevo ($2.200.000)"
+        "destacado_para": "iPhone 15 Pro de 256GB por $2.200.000 (Seminuevo)"
     },
     {
         "sku": "OBX-APL-IP15PM-256",
@@ -1038,11 +1090,11 @@ CATALOGO_INICIAL_CELRED = [
         "categoria": "Open Box (Seminuevo)",
         "gama": "Open Box Seminuevo",
         "especificaciones": "Equipo Seminuevo Open Box de 256GB. Chasis en Titanio, teleobjetivo zoom óptico 5x, pantalla 6.7\" 120Hz y Chip A17 Pro. 🎁 OBSEQUIO INCLUIDO (a elegir): COMBO 2 (Cubo, Cable, Estuche, Vidrio) o COMBO 3 (AirPods).",
-        "precio_cop": 2530000,
+        "precio_cop": 2480000,
         "stock": 4,
         "colores_disponibles": "Titanio Natural, Titanio Negro, Titanio Blanco",
         "garantia_meses": 6,
-        "destacado_para": "iPhone 15 Pro Max 256GB ($2.530.000) + Obsequio: Combo 2 (Cubo, Cable, Estuche, Vidrio) o Combo 3 (AirPods)"
+        "destacado_para": "iPhone 15 Pro Max 256GB ($2.480.000) + Obsequio: Combo 2 (Cubo, Cable, Estuche, Vidrio) o Combo 3 (AirPods)"
     },
     {
         "sku": "OBX-APL-IP16-128",
@@ -1050,7 +1102,7 @@ CATALOGO_INICIAL_CELRED = [
         "modelo": "iPhone 16 128GB (Open Box - Seminuevo)",
         "categoria": "Open Box (Seminuevo)",
         "gama": "Open Box Seminuevo",
-        "especificaciones": "Equipo Seminuevo Open Box (frente a $2.600.000 nuevo). Chip A18, Control de Cámara y Botón de Acción. 🎁 OBSEQUIO INCLUIDO: COMBO 4 (Cubo, Cable, Estuche, Vidrio y AirPods).",
+        "especificaciones": "Equipo Seminuevo Open Box (frente a $2.650.000 nuevo). Chip A18, Control de Cámara y Botón de Acción. 🎁 OBSEQUIO INCLUIDO: COMBO 4 (Cubo, Cable, Estuche, Vidrio y AirPods).",
         "precio_cop": 2180000,
         "stock": 4,
         "colores_disponibles": "Negro, Azul Ultramar, Rosa, Blanco",
@@ -1090,11 +1142,11 @@ CATALOGO_INICIAL_CELRED = [
         "categoria": "Open Box (Seminuevo)",
         "gama": "Open Box Seminuevo",
         "especificaciones": "Equipo Seminuevo Open Box. Pantalla inmersiva de 6.9 pulgadas, Chip A18 Pro, batería récord y cámaras profesionales. 🎁 OBSEQUIO INCLUIDO: COMBO 5 (Reloj, Cable, Cubo, AirPods, Vidrio y Estuche).",
-        "precio_cop": 2950000,
+        "precio_cop": 2930000,
         "stock": 3,
         "colores_disponibles": "Titanio del Desierto, Titanio Natural, Titanio Negro",
         "garantia_meses": 6,
-        "destacado_para": "iPhone 16 Pro Max 256GB ($2.950.000) + Obsequio: Combo 5 (Reloj, Cable, Cubo, AirPods, Vidrio y Estuche)"
+        "destacado_para": "iPhone 16 Pro Max 256GB ($2.930.000) + Obsequio: Combo 5 (Reloj, Cable, Cubo, AirPods, Vidrio y Estuche)"
     },
     {
         "sku": "OBX-APL-IP17P-256",
@@ -1420,34 +1472,32 @@ async def init_db():
     except ImportError:
         from backend.platform_prices import get_platform_info, _fmt_cop  # type: ignore
 
-    # Sincronizar el catálogo oficial de 88 referencias reales de Cel Red
+    # Sincronizar siempre el catálogo oficial de referencias reales de Cel Red al iniciar
     async with AsyncSessionLocal() as session:
-        count_res = await session.execute(select(func.count(Producto.id)))
-        total_productos = count_res.scalar() or 0
-        if total_productos != len(CATALOGO_INICIAL_CELRED):
-            await session.execute(delete(Producto))
-            for item in CATALOGO_INICIAL_CELRED:
-                item_copy = dict(item)
-                pinfo = get_platform_info(item_copy["sku"])
-                if pinfo:
-                    partes_plat = []
-                    if pinfo.get("addi_sistecredito"):
-                        partes_plat.append(f"Addi/Sistecrédito: {_fmt_cop(pinfo['addi_sistecredito'])}")
-                    if pinfo.get("banco_bogota"):
-                        partes_plat.append(f"Banco de Bogotá: {_fmt_cop(pinfo['banco_bogota'])}")
-                    if pinfo.get("krediya"):
-                        k = pinfo["krediya"]
-                        partes_plat.append(f"Krediya: {_fmt_cop(k['plataforma'])} (Inicial 30%: {_fmt_cop(k['inicial_30'])})")
-                    if pinfo.get("credimovil"):
-                        c = pinfo["credimovil"]
-                        partes_plat.append(f"Credimóvil: {_fmt_cop(c['plataforma'])} (Inicial 10%: {_fmt_cop(c['inicial_10'])} / 15%: {_fmt_cop(c['inicial_15'])})")
-                    if pinfo.get("renting"):
-                        r = pinfo["renting"]
-                        partes_plat.append(f"Renting iPhone: {_fmt_cop(r['plataforma'])} (Inicial 20%: {_fmt_cop(r['inicial_20'])} / 30%: {_fmt_cop(r['inicial_30'])})")
-                    if partes_plat and "Addi/Sistecrédito:" not in item_copy["especificaciones"]:
-                        item_copy["especificaciones"] = item_copy["especificaciones"] + " | 💳 Plataformas: " + " · ".join(partes_plat) + "."
-                session.add(Producto(**item_copy))
-            await session.commit()
-            print(f"[OK] Catálogo oficial de Cel Red actualizado con éxito ({len(CATALOGO_INICIAL_CELRED)} referencias reales en BD)")
+        await session.execute(delete(Producto))
+        for item in CATALOGO_INICIAL_CELRED:
+            item_copy = dict(item)
+            pinfo = get_platform_info(item_copy["sku"])
+            if pinfo:
+                partes_plat = []
+                if pinfo.get("addi_sistecredito"):
+                    partes_plat.append(f"Addi/Sistecrédito: {_fmt_cop(pinfo['addi_sistecredito'])}")
+                if pinfo.get("banco_bogota"):
+                    partes_plat.append(f"Banco de Bogotá: {_fmt_cop(pinfo['banco_bogota'])}")
+                if pinfo.get("krediya"):
+                    k = pinfo["krediya"]
+                    partes_plat.append(f"Krediya: {_fmt_cop(k['plataforma'])} (Inicial 30%: {_fmt_cop(k['inicial_30'])})")
+                if pinfo.get("credimovil"):
+                    c = pinfo["credimovil"]
+                    tag_p = "🔥 Credimóvil PROMO NOVIEMBRE" if c.get("promo_noviembre") else "Credimóvil"
+                    partes_plat.append(f"{tag_p}: {_fmt_cop(c['plataforma'])} (Inicial 10%: {_fmt_cop(c['inicial_10'])} / 15%: {_fmt_cop(c['inicial_15'])})")
+                if pinfo.get("renting"):
+                    r = pinfo["renting"]
+                    partes_plat.append(f"Renting iPhone: {_fmt_cop(r['plataforma'])} (Inicial 20%: {_fmt_cop(r['inicial_20'])} / 30%: {_fmt_cop(r['inicial_30'])})")
+                if partes_plat and "Addi/Sistecrédito:" not in item_copy["especificaciones"]:
+                    item_copy["especificaciones"] = item_copy["especificaciones"] + " | 💳 Plataformas: " + " · ".join(partes_plat) + "."
+            session.add(Producto(**item_copy))
+        await session.commit()
+        print(f"[OK] Catálogo oficial de Cel Red sincronizado con éxito ({len(CATALOGO_INICIAL_CELRED)} referencias reales en BD)")
 
     print(f"[OK] Base de datos '{DB_NAME}' y tablas de Cel Red listas (pgvector activo)")
