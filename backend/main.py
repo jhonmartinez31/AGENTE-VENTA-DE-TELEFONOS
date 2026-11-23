@@ -124,7 +124,7 @@ async def _seed_initial_protocols_if_needed():
                         "contenido": (
                             "En la tienda Cel Red el cliente puede separar cualquier celular Android o iPhone con un abono inicial mínimo del 20% "
                             "del valor del equipo. El precio queda congelado y la unidad se reserva con su número de IMEI en bóveda hasta por "
-                            "45 días calendario para pagar en cuotas libres sin intereses."
+                            "15 días calendario para pagar en cuotas libres sin intereses."
                         ),
                         "fuente": "Reglamento de Ventas Cel Red - SysCafé"
                     },

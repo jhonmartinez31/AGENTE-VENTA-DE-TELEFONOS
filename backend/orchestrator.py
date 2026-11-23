@@ -1100,7 +1100,7 @@ class EmergencyOrchestrator:
                 resumen_financiero = f"Precio congelado: {format_cop(producto_principal.precio_cop)} | Inicial 20%: {format_cop(abono_minimo)}"
                 acciones_recomendadas = (
                     f"Separado registrado para {producto_principal.modelo}. Abono inicial mínimo de {format_cop(abono_minimo)} (20%), "
-                    f"plazo de 45 días sin intereses y reserva en sede Cel Red."
+                    f"plazo de 15 días sin intereses y reserva en sede Cel Red."
                 )
             elif es_compra_directa:
                 modalidad_ubicacion = f"Venta Directa en Tienda Cel Red | Pago: {medio_pago_str}"
@@ -1281,7 +1281,7 @@ class EmergencyOrchestrator:
                 f"- **Línea Open Box (Seminuevos Garantizados):** Tenemos iPhone desde el **iPhone 13 128GB en $1.150.000** (con obsequio de Estuche y Vidrio) o el **iPhone 15 128GB Open Box en $1.780.000**.\n"
                 f"- **🔥 Promociones de Noviembre con Credimóvil:** Lleva tu Android dando iniciales promocionales desde **$30.000** (*Samsung A07*), **$50.000** (*Samsung A17, Redmi 15, Redmi 17*), **$60.000** (*Tecno Spark 50*), **$66.000** (*Honor 400*) o **$70.000** (*Infinix Hot 70, Redmi 15C*).\n"
                 f"- **Plataformas de Financiación:** Manejamos **Addi**, **Sistecrédito**, **Confia / Banco de Bogotá**, **Krediya** (iniciales del 30% al 50%), **Credimóvil** (inicial del 10% o 15%) y **Renting para iPhone** (ideal para clientes con poco historial crediticio o reportados, con inicial del 20% o 30%).\n"
-                f"- **Sistema de Separado Cel Red:** Separa cualquier equipo con el **20% de abono inicial** y págalo hasta en 45 días sin intereses."
+                f"- **Sistema de Separado Cel Red:** Separa cualquier equipo con el **20% de abono inicial** y págalo hasta en 15 días sin intereses."
             )
             return texto
 
@@ -1585,7 +1585,7 @@ class EmergencyOrchestrator:
                 f"¡Excelente elección! Tenemos disponible en **Cel Red** el **{prod.modelo}**{nota_ob} "
                 f"(Cotización **{orden.codigo}**):\n\n"
                 f"- **💵 Precio oficial de contado:** **{format_cop(prod.precio_cop)}** *(Disponibles: {prod.stock} unidades)*\n"
-                f"- **🔒 Plan Separado Cel Red (20% inicial):** Sepáralo con **{format_cop(abono)}** a 45 días sin intereses\n"
+                f"- **🔒 Plan Separado Cel Red (20% inicial):** Sepáralo con **{format_cop(abono)}** a 15 días sin intereses\n"
                 f"{linea_obsequio}"
                 f"{bloque_plat}\n"
                 f"- **Colores en tienda:** {prod.colores_disponibles}\n"
